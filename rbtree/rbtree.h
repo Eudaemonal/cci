@@ -24,7 +24,12 @@ private:
 			RIGHT = 1,
 		};
 
-		RBTreeNode(long long k, T *o )
+		RBTreeNode(long long k, T *o, RBTree *t) :
+			obj(o), key(k), color(RED), parent(NULL), tree(t)
+		{
+			this->link[LEFT] = RBTree<T>::nil;
+			this->link[RIGHT] = RBTree<T>::nil;	
+		}
 
 	private:
 		T *obj;
