@@ -9,7 +9,8 @@ struct Node
     int data;
     struct Node* left, *right;
 };
- 
+
+
 bool isBST(Node* root)
 {
     static struct Node *prev = NULL;
