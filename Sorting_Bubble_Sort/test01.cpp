@@ -27,8 +27,6 @@ void bubble(std::vector<int> v){
 	std::cout << "Last Element: " << v[v.size()-1] << "\n";
 }
 
-
-
 int main(){
 	int n;
 	std::cin >> n;
