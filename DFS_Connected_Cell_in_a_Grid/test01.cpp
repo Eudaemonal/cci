@@ -5,7 +5,7 @@
 int visit(std::vector<std::vector<int>> &grid, int i, int j, int n, int m){
 	if (i < 0 || i >= n || j < 0 || j >= m || grid[i][j] == 0) {
 		return 0;
-        }
+	}
 	static int rowNbr[] = {-1, -1, -1, 0, 0, 1, 1, 1};
 	static int colNbr[] = {-1, 0, 1, -1, 1, -1, 0, 1};
 
@@ -18,12 +18,12 @@ int visit(std::vector<std::vector<int>> &grid, int i, int j, int n, int m){
 }
 
 int get_biggest_region(std::vector<std::vector<int>> grid, int n, int m){
-		
 	int maxSize = 0;
 	for(int i = 0; i < n; ++i){
 		for(int j = 0; j < m; ++j){
 			if(grid[i][j]){
 				int size = visit(grid, i, j, n, m);
+				std::cout << i << ", " << j << " : " << size << "\n";
 				if(size > maxSize){
 					maxSize = size;
 				}
