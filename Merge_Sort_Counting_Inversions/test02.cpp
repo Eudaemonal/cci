@@ -1,51 +1,63 @@
 #include <iostream>
 #include <vector>
 
+static long count = 0;
 
+std::vector<int> merge(std::vector<int> left, std::vector<int> right){
+	int totalLength = left.size() + right.size();
+	std::vector<int> result(totalLength);
+	int currentIndex = 0;
+	int leftIndex = 0;
+	int rightIndex = 0;
 
-int merge(std::vector<int> arr, std::vector<int> temp, int start, int mid, int end){
-	int count  =0;
-	for(int i = start; i <=end; ++i){
-		temp[i] = arr[i];
-	}
-	int curr = start;
-	int left = start;
-	int right = mid + 1;
-	while(left <= mid && right <=end){
-		if(temp[left]<=temp[right]){
-			arr[curr++] = temp[left++];
+	while(leftIndex < left.size() && rightIndex < right.size()){
+		if(right[rightIndex] < left[leftIndex]){
+			result[currentIndex] = right[rightIndex];
+			count += left.size() - leftIndex;
+			rightIndex++;
 		}else{
-			count += mid - left + 1;
-			arr[curr++] = temp[right++];
+			result[currentIndex] = left[leftIndex];
+			leftIndex++;
 		}
+		currentIndex++;
 	}
-	while(left <= mid){
-		arr[curr++] =temp[left++];
+	while(leftIndex < left.size()){
+		result[currentIndex] = left[leftIndex];
+		leftIndex ++;
+		currentIndex++;
 	}
-	return count;
+	while(rightIndex < right.size()){
+		result[currentIndex] = right[rightIndex];
+		rightIndex++;
+		currentIndex++;
+	}
+	return result;
 }
 
 
 
-int merge_sort(std::vector<int> arr, std::vector<int> temp, int start, int end){
-	int mid, count = 0;
-
-	if(end > start){
-		mid = (start+ end)/2;
-		count = merge_sort(arr, temp, start, mid);
-		count += merge_sort(arr, temp, mid+1, end);
-		count += merge(arr, temp, start, mid, end);
+std::vector<int> merge_sort(std::vector<int> arr){
+	if(arr.size()==0 || arr.size()==1){
+		return arr;
 	}
+	int half = arr.size()/2;
 
-	return count;
+	std::vector<int> leftSide(half);
+	std::vector<int> rightSide(arr.size() - half);
+
+	for(int i = 0; i < half; ++i){
+		leftSide[i] = arr[i];
+	}
+	for(int i = half; i < arr.size(); ++i){
+		rightSide[i-half] = arr[i];
+	}
+	leftSide = merge_sort(leftSide);
+	rightSide = merge_sort(rightSide);
+	std::vector<int> result = merge(leftSide, rightSide);
+
+	return result;
 }
 
-
-
-int count_inversions(std::vector<int> arr){
-	std::vector<int> temp(arr.size());
-	return merge_sort(arr, temp, 0, arr.size()-1);
-}
 
 int main(){
 	int t;
@@ -57,7 +69,9 @@ int main(){
 		for(int i = 0; i < n; ++i){
 			std::cin >> arr[i];
 		}
-		std::cout << count_inversions(arr) << "\n";
+		merge_sort(arr);
+		std::cout << count << "\n";
+		count = 0;
 	}
 	return 0;
 }
