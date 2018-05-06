@@ -37,12 +37,14 @@ bool anagrams(std::string s1, std::string s2){
 void f(std::vector<std::string> v){
 	int n = v.size();
 	
-	std::vector<std::vector<std::string>> out;
-	std::map<std::string, std::vector<std::string>> m;
+	std::map<int, std::vector<std::string>> m;
 	for(int i = 0; i < n; ++i){
-		std::string key = v[i];
-		std::sort(key.begin(), key.end());
+		int key = 0;
+		for(int j=0; j < v[i].length(); ++j){
+			key |= 1 << (v[i].at(j)-'a');
+		}
 		m[key].push_back(v[i]);
+
 	}
 	// print result
 	for(auto it=m.begin(); it!=m.end(); ++it){
@@ -62,4 +64,5 @@ int main(int argc, char *argv[]){
 	f(v);
 	return 0;
 }
+
 
