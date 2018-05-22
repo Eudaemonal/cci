@@ -25,6 +25,15 @@ public:
 	List()
 		:head(nullptr)
 	{}
+	~List(){
+		Node<T> *curr = head;
+		Node<T> *prev;
+		while(curr->next){
+			prev = curr;
+			delete prev;
+			curr = curr->next;
+		}
+	}
 
 	void insert(T v){
 		if(head == nullptr){
@@ -37,6 +46,26 @@ public:
 			curr->next = new Node<T>(v);
 		}
 	}
+
+	void rm_node_from_end(int n){
+		Node<T> *curr = head;
+		Node<T> *cdel = head;
+		Node<T> *pdel;
+		int count = 0;
+		while(curr){
+			if(count == n){
+				cdel = head;
+			}
+			count++;
+			pdel = cdel;
+			cdel = cdel->next;
+			curr = curr->next;
+		}
+		pdel->next = cdel->next;
+		delete cdel;
+	}
+
+
 	template <class U>
 	friend std::ostream& operator<<(std::ostream& os, const List<U>& l);
 	
@@ -61,12 +90,16 @@ int main(int argc, char *argv[]){
 	List<int> l;
 
 	int n, e;
+	int target;
+	std::cin >> target;
 	std::cin >> n;
 	for(int i = 0; i < n; ++i){
 		std::cin >> e;
 		l.insert(e);
 	}
 
+	l.rm_node_from_end(target);
+	
 	std::cout << l;
 
 	return 0;
