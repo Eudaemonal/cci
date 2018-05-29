@@ -40,8 +40,7 @@ std::vector<std::vector<int>> threeSum(std::vector<int> v){
 				while (front < back && v[back] == triplet[2]) back--;
 			}
 		}
-		while(i+1 < v.size() && v[i+1] == v[i])
-			i++;
+		while(i+1 < v.size() && v[i+1] == v[i]) i++;
 	}
 	return res;
 }

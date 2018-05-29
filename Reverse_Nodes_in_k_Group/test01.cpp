@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stack>
 
 template <class T> class Node;
 template <class T> class List;
@@ -11,6 +12,11 @@ public:
 	{}
 
 	friend class List<T>;
+
+
+	template <class U>
+	Node<U>* reverseKGroup(Node<U> *head, int k);
+
 	template <class U>
 	friend std::ostream& operator<<(std::ostream& os, const List<U>& l);
 
@@ -37,9 +43,37 @@ public:
 			curr->next = new Node<T>(v);
 		}
 	}
-
-	void reverse(int k){
-		
+	
+	void reverseKGroup(int k){
+		if(!head) return;
+		std::stack<Node<T>*> s;
+		int m = k;
+		int num = 0;
+		Node<T> *p = head;
+		Node<T> dummy(0);
+		Node<T> *prev = &dummy;
+		while(p){
+			++num;
+			p = p->next;
+		}
+		p = head;
+		while(num >=k){
+			m = k;
+			while(m--){
+				s.push(p);
+				p = p->next;
+			}
+			m = k;
+			while(m--){
+				prev->next = s.top();
+				s.pop();
+				prev =prev->next;
+				prev->next = nullptr;
+			}
+			num-=k;
+		}
+		if(p) prev->next = p;
+		head = dummy.next;
 	}
 	
 	template <class U>
@@ -62,6 +96,7 @@ std::ostream& operator<<(std::ostream& os, const List<T>& l){
 }
 
 
+
 int main(int argc, char *argv[]){
 	List<int> l;
 
@@ -73,7 +108,7 @@ int main(int argc, char *argv[]){
 		l.insert(e);
 	}
 	
-	l.reverse(k);
+	l.reverseKGroup(k);
 
 	std::cout << l;
 

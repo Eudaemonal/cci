@@ -16,14 +16,13 @@ bool isBST(Node* root)
     static struct Node *prev = NULL;
      
     // traverse the tree in inorder fashion and keep track of prev node
-    if (root)
-    {
+    if (root){
         if (!isBST(root->left))
           return false;
  
         // Allows only distinct valued nodes 
         if (prev != NULL && root->data <= prev->data)
-          return false;
+			return false;
  
         prev = root;
  

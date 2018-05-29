@@ -13,7 +13,8 @@ std::vector<Player> comparator(std::vector<Player> players){
 	std::sort(players.begin(), players.end(), [](const Player &a, const Player &b){
 		return a.name < b.name;
 	});
-	std::stable_sort(players.begin(), players.end(), [](const Player &a, const Player &b){		return a.score > b.score;
+	std::stable_sort(players.begin(), players.end(), [](const Player &a, const Player &b){		
+		return a.score > b.score;
 	});
 	return players;
 }
