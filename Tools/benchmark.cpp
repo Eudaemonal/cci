@@ -14,5 +14,4 @@ int main(){
 
 	std::chrono::duration<double> exec_time = end - start;
 	std::cout << "elapsed time: " << exec_time.count() << "sec \n";
-
 }
