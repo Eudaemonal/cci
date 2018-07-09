@@ -23,14 +23,11 @@ bool anagrams(std::string s1, std::string s2){
 		m[s1.at(i)] +=1;
 		m[s2.at(i)] -=1;
 	}
-
 	for(auto it : m){
 		if(it.second!=0)
 			return false;
 	}
-
 	return true;
-	
 }
 
 

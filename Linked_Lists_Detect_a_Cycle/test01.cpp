@@ -7,14 +7,12 @@ struct Node{
 	struct Node* next;	
 };
 
-
 void push(struct Node** head_ref, int new_data){
 	struct Node * new_node = new Node;
 	new_node->data = new_data;
 	new_node->next = (*head_ref);
 	(*head_ref) = new_node;
 }
-
 
 bool has_cycle(Node* h){
 	std::vector<Node*> s;
@@ -48,7 +46,6 @@ int main(){
 	
 	curr->next = head1;
 
-	
 	std::cout << has_cycle(head1) << "\n";
 	std::cout << has_cycle(head2) << "\n";
 

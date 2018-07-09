@@ -42,7 +42,6 @@ int f(std::vector<int> v){
 				max_area = (j-i) * h;
 		}
 	}
-
 	return max_area;
 }
 
